@@ -37,7 +37,6 @@ export default function StatsSection() {
       const target          = Math.min(N - 1, Math.max(0, Math.floor(progress * N)));
       if (target !== current) {
         current = target;
-        setPhase("exit");
         setActive(target);
       }
     };
@@ -50,6 +49,9 @@ export default function StatsSection() {
   useEffect(() => {
     if (active === displayed) return;
     if (timerRef.current) clearTimeout(timerRef.current);
+
+    // 1. Play exit (current text flies up & fades)
+    setPhase("exit");
 
     // 2. After exit, swap content and play entrance
     timerRef.current = setTimeout(() => {

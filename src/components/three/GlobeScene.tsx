@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -68,46 +68,7 @@ function RingLines() {
   );
 }
 
-function GlobeFallback() {
-  return (
-    <div
-      aria-hidden="true"
-      className="h-full w-full rounded-full"
-      style={{
-        background:
-          "radial-gradient(circle at center, rgba(247, 89, 28, 0.18) 0 26%, rgba(247, 89, 28, 0.08) 27% 44%, rgba(247, 89, 28, 0.14) 45% 46%, transparent 47%), radial-gradient(circle at center, rgba(92, 15, 30, 0.12) 0 62%, transparent 63%), repeating-radial-gradient(circle at center, transparent 0 28px, rgba(247, 89, 28, 0.16) 28px 30px, transparent 30px 56px)",
-        boxShadow: "inset 0 0 80px rgba(247, 89, 28, 0.08)",
-        opacity: 0.9,
-      }}
-    />
-  );
-}
-
-function canCreateWebGLContext() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  try {
-    const canvas = document.createElement("canvas");
-    const contextNames = ["webgl2", "webgl", "experimental-webgl"] as const;
-
-    return contextNames.some((contextName) => {
-      const context = canvas.getContext(contextName);
-      return context !== null;
-    });
-  } catch {
-    return false;
-  }
-}
-
 export default function GlobeScene() {
-  const [canRenderWebGL] = useState(canCreateWebGLContext);
-
-  if (!canRenderWebGL) {
-    return <GlobeFallback />;
-  }
-
   return (
     <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} style={{ background: "transparent" }}>
       <ambientLight intensity={0.5} />

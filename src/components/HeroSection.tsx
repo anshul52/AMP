@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import SvgParticleLogo from "@/components/SvgParticleLogo";
+
+const HERO_POINT_ICON = "/AMP%20LOGOMARK.svg";
 
 export default function HeroSection() {
   return (
@@ -134,21 +137,15 @@ export default function HeroSection() {
                     color: "#f7591c",
                   }}
                 >
-                  <svg
-                    width="14"
-                    height="10"
-                    viewBox="0 0 14 10"
-                    fill="none"
+                  <Image
+                    src={HERO_POINT_ICON}
+                    alt=""
                     aria-hidden="true"
-                  >
-                    <path
-                      d="M1 5L5 9L13 1"
-                      stroke="#f7591c"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    width={14}
+                    height={11}
+                    unoptimized
+                    style={{ flexShrink: 0 }}
+                  />
                   {item}
                 </li>
               ))}

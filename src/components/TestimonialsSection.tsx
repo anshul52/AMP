@@ -61,6 +61,7 @@ const team = [
 
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0);
+  const mobileVisibleIndices = [active, (active + 1) % team.length];
 
   return (
     <section
@@ -82,12 +83,12 @@ export default function TestimonialsSection() {
 
       {/* ── Main content (heading + quote + carousel) — wide side padding ── */}
       <div
-        className="relative z-10 w-full"
+        className="relative z-10 w-full flex flex-col justify-center items-center"
         style={{
           paddingTop: "clamp(48px, 6.67vw, 96px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
-          paddingLeft: "clamp(24px, 17.29vw, 249px)",
-          paddingRight: "clamp(24px, 17.29vw, 249px)",
+          paddingLeft: 10,
+          paddingRight: 10,
         }}
       >
         {/* Heading */}
@@ -107,12 +108,10 @@ export default function TestimonialsSection() {
 
         {/* Quote */}
         <div
-          style={
-            {
-              // marginBottom:300
-            }
-          }
-          className="mx-auto mb-[300px] min-h-[96px] w-full px-2 text-center sm:mb-[300px] sm:px-4 md:mb-[300px] md:min-h-[80px] md:px-0"
+          className="mx-auto h-[96px] w-full flex items-center justify-center px-2 text-center sm:px-4 md:h-[120px] md:px-0"
+          style={{
+            marginBottom: "clamp(10px, 1vw, 160px)",
+          }}
         >
           <p
             className="mx-auto max-w-[20ch] text-white sm:max-w-[26ch] md:max-w-none"
@@ -131,7 +130,12 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Carousel */}
-        <div className="relative mt-100 mx-auto flex w-full max-w-[1020px] items-end justify-center px-12 md:px-24 pb-2">
+        <div
+          className="relative  sm:h-50 h-50  mx-auto flex w-full max-w-[1020px] items-end justify-center px-12 pb-2 md:px-24"
+          style={{
+            marginTop: 0,
+          }}
+        >
           {/* Previous Arrow */}
           <button
             onClick={() =>
@@ -152,10 +156,14 @@ export default function TestimonialsSection() {
           <div className="flex flex-nowrap items-end justify-center gap-1.5 md:gap-3 w-full z-50">
             {team.map((member, i) => {
               const isActive = i === active;
+              const isVisibleOnMobile = mobileVisibleIndices.includes(i);
+
               return (
                 <div
                   key={member.name}
-                  className="relative flex flex-col items-start transition-all duration-300 min-w-0"
+                  className={`relative min-w-0 flex-col items-start transition-all duration-300 md:flex ${
+                    isVisibleOnMobile ? "flex" : "hidden"
+                  }`}
                 >
                   {/* Floating Author Info */}
                   <div

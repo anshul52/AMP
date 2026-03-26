@@ -92,6 +92,7 @@ export default function HeroSection() {
                 fontWeight: 900,
                 lineHeight: 0.92,
                 letterSpacing: "-0.02em",
+                marginBottom: 30,
               }}
             >
               We&apos;ve got
@@ -107,13 +108,17 @@ export default function HeroSection() {
                 fontWeight: 400,
                 lineHeight: 1.6,
                 maxWidth: 460,
+                marginBottom: 30,
               }}
             >
               We are a collective of world-class HR experts, delivering
               end-to-end people strategies across the GCC and beyond.
             </p>
 
-            <ul className="hero-points mb-10 flex flex-col gap-4">
+            <ul
+              className="hero-points mb-10 flex flex-col gap-4"
+              style={{ marginBottom: 30 }}
+            >
               {[
                 "Total Rewards & Talent Strategy",
                 "Global Reach, Local Expertise",

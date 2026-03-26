@@ -98,13 +98,90 @@ export default function TotalRewardsSection() {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
+        @media (max-width: 767px) {
+          .amp-total-rewards-sticky {
+            height: 100svh !important;
+          }
+          .amp-total-rewards-slide {
+            inset: 10px !important;
+            border-radius: 18px !important;
+          }
+          .amp-total-rewards-overlay {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.58) 44%, rgba(0, 0, 0, 0.76) 100%) !important;
+          }
+          .amp-total-rewards-content {
+            align-items: flex-start !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            gap: 24px !important;
+            padding: 22px 20px 72px !important;
+          }
+          .amp-total-rewards-left,
+          .amp-total-rewards-right {
+            width: 100% !important;
+          }
+          .amp-total-rewards-spacer,
+          .amp-total-rewards-slide-number,
+          .amp-total-rewards-counter {
+            display: none !important;
+          }
+          .amp-total-rewards-tag {
+            font-size: 10px !important;
+            margin-bottom: 12px !important;
+          }
+          .amp-total-rewards-title {
+            font-size: clamp(32px, 10vw, 46px) !important;
+            line-height: 0.98 !important;
+            margin-bottom: 16px !important;
+          }
+          .amp-total-rewards-desc {
+            font-size: 14px !important;
+            line-height: 1.55 !important;
+            margin-bottom: 22px !important;
+            max-width: none !important;
+          }
+          .amp-total-rewards-cta,
+          .amp-total-rewards-explore {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+          }
+          .amp-total-rewards-cta {
+            padding: 14px 18px !important;
+          }
+          .amp-total-rewards-feature {
+            margin-bottom: 16px !important;
+            padding-bottom: 16px !important;
+          }
+          .amp-total-rewards-feature > div:first-child {
+            margin-bottom: 6px !important;
+          }
+          .amp-total-rewards-feature > div:nth-child(2) {
+            font-size: 15px !important;
+          }
+          .amp-total-rewards-feature > div:nth-child(3) {
+            font-size: 12px !important;
+            line-height: 1.5 !important;
+          }
+          .amp-total-rewards-explore {
+            margin-top: 18px !important;
+            padding: 12px 16px !important;
+          }
+          .amp-total-rewards-progress {
+            bottom: 18px !important;
+            gap: 6px !important;
+          }
+        }
       `}</style>
 
       {/* ── Outer scroll container — N+1 viewports so each slide = 1 full scroll ── */}
       <div ref={sectionRef} style={{ height: `${(N + 1) * 100}vh` }}>
 
         {/* ── Sticky viewport ── */}
-        <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#ffffff" }}>
+        <div
+          className="amp-total-rewards-sticky"
+          style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#ffffff" }}
+        >
 
           {SLIDES.map((slide, i) => {
             const isActive = i === active;
@@ -113,6 +190,7 @@ export default function TotalRewardsSection() {
             return (
               <div
                 key={i}
+                className="amp-total-rewards-slide"
                 style={{
                   position     : "absolute",
                   inset        : "14px",
@@ -134,27 +212,37 @@ export default function TotalRewardsSection() {
                 />
 
                 {/* Dark gradient overlay */}
-                <div style={{
-                  position  : "absolute",
-                  inset     : 0,
-                  background: "linear-gradient(110deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.48) 55%,rgba(0,0,0,0.55) 100%)",
-                }} />
+                <div
+                  className="amp-total-rewards-overlay"
+                  style={{
+                    position  : "absolute",
+                    inset     : 0,
+                    background: "linear-gradient(110deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.48) 55%,rgba(0,0,0,0.55) 100%)",
+                  }}
+                />
 
                 {/* ── Content — always rendered so past-card text stays visible ── */}
-                <div style={{
-                  position: "absolute",
-                  inset   : 0,
-                  display : "flex",
-                  alignItems: "center",
-                  padding : "clamp(28px, 5vw, 72px)",
-                }}>
+                <div
+                  className="amp-total-rewards-content"
+                  style={{
+                    position: "absolute",
+                    inset   : 0,
+                    display : "flex",
+                    alignItems: "center",
+                    padding : "clamp(28px, 5vw, 72px)",
+                  }}
+                >
 
                   {/* ─── LEFT: tag · title · desc · CTA ─── */}
-                  <div style={{ flex: "0 0 auto", width: "clamp(260px, 44%, 560px)", color: "white" }}>
+                  <div
+                    className="amp-total-rewards-left"
+                    style={{ flex: "0 0 auto", width: "clamp(260px, 44%, 560px)", color: "white" }}
+                  >
 
                     {/* Tag */}
                     <span
                       key={isActive ? `tag-${animKey}` : `tag-past-${i}`}
+                      className="amp-total-rewards-tag"
                       style={{
                         display    : "block",
                         fontSize   : 11,
@@ -174,6 +262,7 @@ export default function TotalRewardsSection() {
                     {/* Title */}
                     <h2
                       key={isActive ? `h2-${animKey}` : `h2-past-${i}`}
+                      className="amp-total-rewards-title"
                       style={{
                         fontFamily   : "var(--font-geist),Geist,sans-serif",
                         fontSize     : "clamp(36px,5.5vw,80px)",
@@ -192,6 +281,7 @@ export default function TotalRewardsSection() {
                     {/* Description */}
                     <p
                       key={isActive ? `p-${animKey}` : `p-past-${i}`}
+                      className="amp-total-rewards-desc"
                       style={{
                         fontFamily   : "var(--font-geist),Geist,sans-serif",
                         fontSize     : "clamp(13px,1.1vw,15px)",
@@ -211,6 +301,7 @@ export default function TotalRewardsSection() {
                     {/* CTA */}
                     <button
                       key={isActive ? `btn-${animKey}` : `btn-past-${i}`}
+                      className="amp-total-rewards-cta"
                       style={{
                         border       : "1px solid rgba(255,255,255,0.32)",
                         borderRadius : 100,
@@ -241,13 +332,17 @@ export default function TotalRewardsSection() {
                   </div>
 
                   {/* Spacer */}
-                  <div style={{ flex: 1 }} />
+                  <div className="amp-total-rewards-spacer" style={{ flex: 1 }} />
 
                   {/* ─── RIGHT: feature list ─── */}
-                  <div style={{ flex: "0 0 auto", width: "clamp(200px,28%,340px)", color: "white" }}>
+                  <div
+                    className="amp-total-rewards-right"
+                    style={{ flex: "0 0 auto", width: "clamp(200px,28%,340px)", color: "white" }}
+                  >
                     {slide.features.map((f, j) => (
                       <div
                         key={isActive ? `feat-${j}-${animKey}` : `feat-past-${i}-${j}`}
+                        className="amp-total-rewards-feature"
                         style={{
                           marginBottom : j < slide.features.length - 1 ? 22 : 0,
                           paddingBottom: j < slide.features.length - 1 ? 22 : 0,
@@ -279,6 +374,7 @@ export default function TotalRewardsSection() {
                     {/* Explore */}
                     <button
                       key={isActive ? `exp-${animKey}` : `exp-past-${i}`}
+                      className="amp-total-rewards-explore"
                       style={{
                         marginTop   : 28,
                         border      : "1px solid rgba(255,255,255,0.2)",
@@ -318,32 +414,38 @@ export default function TotalRewardsSection() {
                 </div>
 
                 {/* Slide number */}
-                <div style={{
-                  position    : "absolute",
-                  bottom      : 28,
-                  left        : 32,
-                  fontFamily  : "var(--font-geist),Geist,sans-serif",
-                  fontSize    : 11,
-                  fontWeight  : 600,
-                  color       : "rgba(255,255,255,0.35)",
-                  letterSpacing: "0.1em",
-                  zIndex      : 2,
-                }}>{String(i + 1).padStart(2, "0")}</div>
+                <div
+                  className="amp-total-rewards-slide-number"
+                  style={{
+                    position    : "absolute",
+                    bottom      : 28,
+                    left        : 32,
+                    fontFamily  : "var(--font-geist),Geist,sans-serif",
+                    fontSize    : 11,
+                    fontWeight  : 600,
+                    color       : "rgba(255,255,255,0.35)",
+                    letterSpacing: "0.1em",
+                    zIndex      : 2,
+                  }}
+                >{String(i + 1).padStart(2, "0")}</div>
               </div>
             );
           })}
 
           {/* ── Progress dots ── */}
-          <div style={{
-            position : "absolute",
-            bottom   : 28,
-            left     : "50%",
-            transform: "translateX(-50%)",
-            display  : "flex",
-            alignItems: "center",
-            gap      : 8,
-            zIndex   : N + 1,
-          }}>
+          <div
+            className="amp-total-rewards-progress"
+            style={{
+              position : "absolute",
+              bottom   : 28,
+              left     : "50%",
+              transform: "translateX(-50%)",
+              display  : "flex",
+              alignItems: "center",
+              gap      : 8,
+              zIndex   : N + 1,
+            }}
+          >
             {SLIDES.map((_, k) => (
               <div key={k} style={{
                 height    : 6,
@@ -356,17 +458,20 @@ export default function TotalRewardsSection() {
           </div>
 
           {/* ── Counter ── */}
-          <div style={{
-            position    : "absolute",
-            bottom      : 28,
-            right       : 32,
-            fontFamily  : "var(--font-geist),Geist,sans-serif",
-            fontSize    : 11,
-            fontWeight  : 600,
-            color       : "rgba(255,255,255,0.35)",
-            letterSpacing: "0.12em",
-            zIndex      : N + 1,
-          }}>
+          <div
+            className="amp-total-rewards-counter"
+            style={{
+              position    : "absolute",
+              bottom      : 28,
+              right       : 32,
+              fontFamily  : "var(--font-geist),Geist,sans-serif",
+              fontSize    : 11,
+              fontWeight  : 600,
+              color       : "rgba(255,255,255,0.35)",
+              letterSpacing: "0.12em",
+              zIndex      : N + 1,
+            }}
+          >
             {String(active + 1).padStart(2, "0")} / {String(N).padStart(2, "0")}
           </div>
 

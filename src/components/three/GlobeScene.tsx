@@ -1,8 +1,75 @@
 "use client";
-import { useRef, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
+
+type WebGLSupport = "checking" | "supported" | "unsupported";
+
+function canUseWebGL() {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return false;
+  }
+
+  if (!window.WebGLRenderingContext && !window.WebGL2RenderingContext) {
+    return false;
+  }
+
+  try {
+    const canvas = document.createElement("canvas");
+    const options = {
+      alpha: true,
+      antialias: false,
+      failIfMajorPerformanceCaveat: true,
+    };
+
+    return Boolean(
+      canvas.getContext("webgl2", options) ||
+      canvas.getContext("webgl", options) ||
+      canvas.getContext("experimental-webgl", options)
+    );
+  } catch {
+    return false;
+  }
+}
+
+function GlobeFallback() {
+  return (
+    <div
+      aria-hidden="true"
+      className="relative h-full w-full overflow-hidden rounded-full"
+      style={{
+        background:
+          "radial-gradient(circle at 30% 30%, rgba(247, 89, 28, 0.18), transparent 42%), radial-gradient(circle at 70% 70%, rgba(247, 89, 28, 0.14), transparent 35%), radial-gradient(circle, rgba(247, 89, 28, 0.08) 0%, rgba(247, 89, 28, 0.04) 45%, rgba(247, 89, 28, 0) 72%)",
+      }}
+    >
+      <div
+        className="absolute inset-[9%] rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.18)" }}
+      />
+      <div
+        className="absolute inset-[18%] rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.12)" }}
+      />
+      <div
+        className="absolute left-1/2 top-[9%] h-[82%] w-[30%] -translate-x-1/2 rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.12)" }}
+      />
+      <div
+        className="absolute left-1/2 top-[9%] h-[82%] w-[58%] -translate-x-1/2 rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.08)" }}
+      />
+      <div
+        className="absolute left-[9%] top-1/2 h-[28%] w-[82%] -translate-y-1/2 rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.12)" }}
+      />
+      <div
+        className="absolute left-[9%] top-1/2 h-[54%] w-[82%] -translate-y-1/2 rounded-full border"
+        style={{ borderColor: "rgba(247, 89, 28, 0.08)" }}
+      />
+    </div>
+  );
+}
 
 function GlobePoints() {
   const pointsRef = useRef<THREE.Points>(null!);
@@ -69,8 +136,32 @@ function RingLines() {
 }
 
 export default function GlobeScene() {
+  const [support, setSupport] = useState<WebGLSupport>("checking");
+
+  useEffect(() => {
+    let cancelled = false;
+    const frameId = window.requestAnimationFrame(() => {
+      if (!cancelled) {
+        setSupport(canUseWebGL() ? "supported" : "unsupported");
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  if (support !== "supported") {
+    return <GlobeFallback />;
+  }
+
   return (
-    <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} style={{ background: "transparent" }}>
+    <Canvas
+      camera={{ position: [0, 0, 2.5], fov: 45 }}
+      fallback={<GlobeFallback />}
+      style={{ background: "transparent" }}
+    >
       <ambientLight intensity={0.5} />
       <GlobePoints />
       <RingLines />

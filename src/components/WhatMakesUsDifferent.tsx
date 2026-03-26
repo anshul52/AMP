@@ -121,6 +121,70 @@ export default function WhatMakesUsDifferent() {
           overflow:    hidden;
           text-overflow: ellipsis;
         }
+        @media (max-width: 1023px) {
+          .wmud-title {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+          }
+
+          .wmud-grid {
+            gap: 28px !important;
+          }
+
+          .wmud-row {
+            margin-top: 20px !important;
+          }
+
+          .wmud-text {
+            min-width: 0;
+          }
+
+          .wmud-heading {
+            font-size: 18px !important;
+            line-height: 1.2 !important;
+          }
+
+          .wmud-desc {
+            padding-left: 0 !important;
+            margin-top: 10px !important;
+          }
+
+          .wmud-image-wrap {
+            justify-content: center !important;
+          }
+
+          .wmud-watermark {
+            right: 50% !important;
+            top: 50% !important;
+            transform: translate(50%, -50%) !important;
+            font-size: min(70vw, 360px) !important;
+          }
+
+          .wmud-image {
+            width: min(100%, 420px) !important;
+            height: clamp(260px, 78vw, 420px) !important;
+          }
+        }
+
+        @media (max-width: 639px) {
+          .wmud-row {
+            gap: 8px !important;
+          }
+
+          .wmud-step {
+            min-width: 20px !important;
+          }
+
+          .wmud-heading {
+            font-size: 16px !important;
+          }
+
+          .wmud-desc {
+            font-size: 13px !important;
+            line-height: 1.55 !important;
+          }
+        }
       `}</style>
 
       <div
@@ -203,6 +267,7 @@ export default function WhatMakesUsDifferent() {
                 return (
                   <div
                     key={item.num}
+                    className="wmud-row"
                     onClick={() => handleClick(i)}
                     style={{
                       display: "flex",
@@ -240,6 +305,7 @@ export default function WhatMakesUsDifferent() {
                       The slot stays fixed so the cube tracks it perfectly.
                     */}
                     <motion.div
+                      className="wmud-text"
                       animate={{ x: isActive ? 8 : 0 }}
                       transition={{
                         type: "spring",
@@ -258,6 +324,7 @@ export default function WhatMakesUsDifferent() {
                       >
                         {/* Step number */}
                         <span
+                          className="wmud-step"
                           style={{
                             fontFamily: "var(--font-geist), Geist, sans-serif",
                             fontSize: 12,
@@ -274,6 +341,7 @@ export default function WhatMakesUsDifferent() {
 
                         {/* Bold heading */}
                         <h3
+                          className="wmud-heading"
                           style={{
                             fontFamily: "var(--font-geist), Geist, sans-serif",
                             fontSize: "clamp(15px, 1.53vw, 22px)",
@@ -281,6 +349,7 @@ export default function WhatMakesUsDifferent() {
                             lineHeight: 1.1,
                             letterSpacing: "-0.05em",
                             margin: 0,
+                            overflowWrap: "anywhere",
                             color: isActive ? "#141314" : "#c0c0c0",
                             transition: "color 0.35s ease",
                           }}
@@ -291,6 +360,7 @@ export default function WhatMakesUsDifferent() {
 
                       {/* ── Description — indented under heading ── */}
                       <p
+                        className="wmud-desc"
                         style={{
                           fontFamily: "var(--font-geist), Geist, sans-serif",
                           fontSize: "clamp(12px, 0.97vw, 14px)",
@@ -316,6 +386,7 @@ export default function WhatMakesUsDifferent() {
 
           {/* ─── RIGHT: image with vertical scroll + faint "A" watermark ─── */}
           <div
+            className="wmud-image-wrap"
             style={{
               position: "relative",
               display: "flex",
@@ -324,6 +395,7 @@ export default function WhatMakesUsDifferent() {
           >
             {/* Faint "A" watermark */}
             <span
+              className="wmud-watermark"
               aria-hidden
               style={{
                 position: "absolute",
@@ -348,6 +420,7 @@ export default function WhatMakesUsDifferent() {
               Images enter/exit vertically like a continuous scroll.
             */}
             <div
+              className="wmud-image"
               style={{
                 position: "relative",
                 width: "clamp(260px, 42vw, 500px)",

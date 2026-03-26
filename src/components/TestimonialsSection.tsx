@@ -107,11 +107,15 @@ export default function TestimonialsSection() {
 
         {/* Quote */}
         <div
-          className="mx-auto mb-10 text-center md:mb-12 w-full"
-          style={{ minHeight: 80, marginBottom: 300 }}
+          style={
+            {
+              // marginBottom:300
+            }
+          }
+          className="mx-auto mb-[300px] min-h-[96px] w-full px-2 text-center sm:mb-[300px] sm:px-4 md:mb-[300px] md:min-h-[80px] md:px-0"
         >
           <p
-            className="text-white"
+            className="mx-auto max-w-[20ch] text-white sm:max-w-[26ch] md:max-w-none"
             style={{
               fontFamily: "var(--font-geist), Geist, sans-serif",
               fontSize: "clamp(15px, 2.64vw, 38px)",
@@ -119,6 +123,7 @@ export default function TestimonialsSection() {
               lineHeight: 1.2,
               letterSpacing: "-0.04em",
               transition: "opacity 0.3s ease",
+              // marginBottom:300
             }}
           >
             &ldquo;{team[active].quote}&rdquo;
@@ -126,7 +131,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Carousel */}
-        <div className="relative  mx-auto flex w-full max-w-[1020px] items-end justify-center px-12 md:px-24 pb-2">
+        <div className="relative mt-100 mx-auto flex w-full max-w-[1020px] items-end justify-center px-12 md:px-24 pb-2">
           {/* Previous Arrow */}
           <button
             onClick={() =>

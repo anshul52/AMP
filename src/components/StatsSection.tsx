@@ -49,18 +49,24 @@ export default function StatsSection() {
   useEffect(() => {
     if (active === displayed) return;
     if (timerRef.current) clearTimeout(timerRef.current);
+    let frameId: number | null = null;
 
-    // 1. Play exit (current text flies up & fades)
-    setPhase("exit");
+    frameId = window.requestAnimationFrame(() => {
+      // 1. Play exit (current text flies up & fades)
+      setPhase("exit");
 
-    // 2. After exit, swap content and play entrance
-    timerRef.current = setTimeout(() => {
-      setDisplayed(active);
-      setPhase("enter");
-      setEnterKey(k => k + 1);
-    }, EXIT_MS);
+      // 2. After exit, swap content and play entrance
+      timerRef.current = setTimeout(() => {
+        setDisplayed(active);
+        setPhase("enter");
+        setEnterKey(k => k + 1);
+      }, EXIT_MS);
+    });
 
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    return () => {
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [active]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stat = STATS[displayed];

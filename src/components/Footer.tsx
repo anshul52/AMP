@@ -12,23 +12,13 @@ const INSTAGRAM =
 
 const navLinks = ["Home", "About", "Our DNA", "Privacy Policy"];
 
-const PX = "clamp(24px, 16.18vw, 233px)";
-
 export default function Footer() {
   return (
-    <footer className="w-full bg-black text-white">
+    <footer className="flex w-full flex-col items-center justify-center bg-black text-white">
       {/* Main row */}
-      <div
-        className="mx-auto w-full flex flex-col lg:flex-row items-start  justify-between gap-12"
-        style={{
-          paddingTop: "clamp(48px, 7.71vw, 111px)",
-          paddingBottom: "clamp(32px, 4.17vw, 60px)",
-          paddingLeft: 60,
-          paddingRight: 60,
-        }}
-      >
+      <div className="mx-auto flex w-full max-w-[340px] sm:max-w-[1440px] flex-col items-start justify-between gap-12 px-6 pt-[clamp(48px,7.71vw,111px)] pb-[clamp(32px,4.17vw,60px)] sm:px-8 lg:flex-row lg:px-[60px]">
         {/* Left */}
-        <div className="flex flex-col gap-6">
+        <div className="flex w-full max-w-[436px] flex-col gap-6">
           <div
             className="relative"
             style={{ width: "clamp(180px, 30.28vw, 436px)", height: 86 }}
@@ -55,11 +45,9 @@ export default function Footer() {
           </p>
 
           <button
-            className="flex items-center justify-center rounded-full transition-colors hover:border-white"
+            className="flex h-[66px] w-full max-w-[256px] items-center justify-center rounded-full px-6 text-center transition-colors hover:border-white"
             style={{
               border: "0.944px solid #a8a8a8",
-              width: 256,
-              height: 66,
               fontFamily: "var(--font-geist), Geist, sans-serif",
               fontSize: 15,
               fontWeight: 500,
@@ -71,8 +59,8 @@ export default function Footer() {
         </div>
 
         {/* Right */}
-        <div className="flex flex-col items-start gap-5 lg:items-end">
-          <div className="flex gap-4">
+        <div className="flex w-full flex-col items-start gap-5 lg:w-auto lg:items-end">
+          <div className="flex flex-wrap gap-4">
             {[YOUTUBE, LINKEDIN, INSTAGRAM].map((src, i) => (
               <a
                 key={i}
@@ -122,11 +110,9 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <div
-        className="mx-auto w-full max-w-[1440px] flex justify-end border-t border-white/10"
-        style={{ padding: `16px ${PX} clamp(20px, 2.78vw, 40px)` }}
-      >
+      <div className="mx-auto flex w-full max-w-[1440px] justify-start border-t border-white/10 px-6 pt-4 pb-[clamp(20px,2.78vw,40px)] sm:justify-end sm:px-8 lg:px-[60px]">
         <p
+          className="max-w-full text-left sm:text-right"
           style={{
             fontFamily: "var(--font-geist), Geist, sans-serif",
             fontSize: 12,

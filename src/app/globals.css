@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --font-geist: 'Geist', sans-serif;
+  --orange: #f7591c;
+  --orange-btn: #f85a1d;
+  --dark-red: #5c0f1e;
+  --cream: #fff4ef;
+  --dark: #111111;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background: var(--cream);
+}
+
+body {
+  font-family: var(--font-geist), 'Geist', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: clip;
+}
+
+/* ── Scrollbar — thin, blends with cream background ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: rgba(247,89,28,0.28); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(247,89,28,0.55); }
+
+html { scrollbar-width: thin; scrollbar-color: rgba(247,89,28,0.28) var(--cream); }
